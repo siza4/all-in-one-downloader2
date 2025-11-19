@@ -1,0 +1,14 @@
+{
+  "name": "all-in-one-downloader",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^3.4.0",
+    "ytdl-core": "^4.11.2"
+  }
+}
