@@ -21,6 +21,28 @@
   <div id="detected" style="margin-top:12px;color:#333"></div>
   <div id="result" style="margin-top:16px"></div>
 
+<!-- Pre-Download Rewarded Ad Screen -->
+<div id="preDownload" class="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center text-white hidden z-50">
+  <div class="bg-gray-900 p-6 rounded-xl text-center max-w-md w-full">
+    <p class="mb-4">Your download will start in <span id="countdown">5</span> seconds...</p>
+    
+    <!-- Ad placeholder: replace with your ad network script -->
+    <div class="mb-4">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <button id="skipAd" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">Skip Ad</button>
+  </div>
+</div>
+
+  
   <footer style="margin-top:40px;font-size:13px;color:#666">
     <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms.html">Terms</a> | <a href="/contact.html">Contact</a>
   </footer>
@@ -56,6 +78,34 @@
       document.getElementById('result').innerHTML = html;
     }catch(err){ document.getElementById('result').textContent = 'Error: ' + err.message; }
   }
+function showPreDownload(callback){
+    const pre = document.getElementById('preDownload');
+    const countdownEl = document.getElementById('countdown');
+    pre.style.display = 'flex'; // show the overlay
+
+    let count = 5; // countdown in seconds
+    const timer = setInterval(() => {
+        countdownEl.textContent = count;
+        count--;
+        if(count < 0){
+            clearInterval(timer);
+            pre.style.display = 'none';
+            callback(); // proceed to download
+        }
+    }, 1000);
+
+    // Skip button
+    document.getElementById('skipAd').onclick = () => {
+        clearInterval(timer);
+        pre.style.display = 'none';
+        callback(); // proceed to download
+    }
+}
+        
   </script>
+
+
+
+  
 </body>
 </html>
